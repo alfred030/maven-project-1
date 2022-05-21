@@ -10,6 +10,7 @@ pipeline {
 
             steps {
                sh '''
+               rm -rf webapp/target/webapp.war || true
               mvn clean
                '''
             }
@@ -60,7 +61,10 @@ stage('package') {
 
             steps {
                sh '''
+            
               mvn package
+              ls -l webapp/target
+              pwd
                '''
             }
         }
@@ -86,6 +90,15 @@ stage('install') {
             steps {
                sh '''
            mvn install
+               '''
+            }
+        }
+       
+stage('build ') {
+
+            steps {
+               sh '''
+           docker build -t devopseasylearning2021:001 .
                '''
             }
         }
