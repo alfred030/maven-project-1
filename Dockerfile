@@ -1,2 +1,2 @@
-FROM httpd:2.4
-COPY ./index.html  /usr/local/apache2/htdocs/
+FROM tomcat:8.0-alpine
+COPY webapp/target/webapp.war  /usr/local/tomcat/webapps
