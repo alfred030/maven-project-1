@@ -2,6 +2,27 @@ pipeline {
     agent any
 
     stages {
+        
+       stage('Setup parameters') {
+            steps {
+                script { 
+                    properties([
+                        parameters([
+                          
+
+                            string(
+                                defaultValue: '001', 
+                                name: 'Image-TAG', 
+                                trim: true
+                            )
+                        ])
+                    ])
+                }
+            }
+        }
+
+
+
 
         stage('clean') {
             agent {
@@ -98,7 +119,7 @@ stage('build ') {
 
             steps {
                sh '''
-           docker build -t devopseasylearning2021:001 .
+           docker build -t devopseasylearning2021:$Image-TAG .
                '''
             }
         }
