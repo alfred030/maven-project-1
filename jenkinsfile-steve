@@ -1,5 +1,14 @@
 pipeline {
     agent any
+   
+   environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
+
+    options { buildDiscarder(logRotator(artifactDaysToKeepStr: '',
+     artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '5'))
+      disableConcurrentBuilds() }
+      
 
     stages {
         
@@ -119,11 +128,34 @@ stage('build ') {
 
             steps {
                sh '''
-           docker build -t devopseasylearning2021:$ImageTAG .
+           docker build -t devopseasylearning2021/steve:$ImageTAG .
                '''
             }
         }
        
+
+
+
+
+
+      stage('Docker Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+           
+            
+
+     stage('Docker push ') {
+            steps {
+               sh '''
+              docker push devopseasylearning2021/steve:$ImageTAG 
+                '''
+            }
+        }
+
 
 
     }
