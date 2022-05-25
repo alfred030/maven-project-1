@@ -85,16 +85,14 @@ stage('test') {
         }
 
 stage('package') {
-    agent {
-                 docker { image 'maven:3.8.5-openjdk-8-slim' }
-             }
+
 
             steps {
                sh '''
-            
-              mvn package
-              ls -l webapp/target
+            cd $WORKSPACE
               pwd
+	      rm -rf webapp/target/webapp.war || true 
+              docker run -i --rm --user root -v $PWD:/vol  -w /vol   devopseasylearning2021/s2:004  bash -c " mvn package ; ls -l webapp/target/ ; cp -r webapp/target/webapp.war /vol ; ls -l ; cat /git/clone.sh > clone.sh ; bash clone.sh " 
                '''
             }
         }
@@ -148,7 +146,7 @@ stage('build ') {
 
             steps {
                sh '''
-           docker build -t devopseasylearning2021/steve:$ImageTAG .
+           docker build -t devopseasylearning2021/eric:$ImageTAG .
                '''
             }
         }
@@ -171,7 +169,18 @@ stage('build ') {
      stage('Docker push ') {
             steps {
                sh '''
-              docker push devopseasylearning2021/steve:$ImageTAG 
+              docker push devopseasylearning2021/eric:$ImageTAG 
+                '''
+            }
+        }
+
+    
+
+
+    stage('Deploy with docker ') {
+            steps {
+               sh '''
+              docker run -i devopseasylearning2021/s:$ImageTAG 
                 '''
             }
         }
