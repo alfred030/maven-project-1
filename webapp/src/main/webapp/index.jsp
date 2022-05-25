@@ -8,7 +8,7 @@
 
   <title>PARKING LOT: welcome to Devops made easy</title>
   <meta name="description" content="Parking Lot - Register and Get your Parking Slot.">
-  <meta name="author" content="Liyas Thomas">
+  <meta name="author" content="Steve Tal">
 
   <!-- Bootstrap core CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,7 +21,7 @@
 
   <div class="container">
     <div class="page-header-extended">
-      <h4 class="page-title">PARKING LOT: welcome to Devops made easy</h4>
+      <h4 class="page-title">PARKING LOT: welcome to EK TECH SOFTWARE SOLUTION</h4>
     </div>
     <div class="info-table-header-block">
       <input type="text" placeholder="Search vehicles by Registration no, Owner name, Email, Date of allocation, Slot etc." id="member_search" onkeyup="getTableData()">
