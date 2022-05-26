@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent { 
+        label 'jenkins-node'
+         }
    
    environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
@@ -89,10 +91,7 @@ stage('package') {
 
             steps {
                sh '''
-            cd $WORKSPACE
-              pwd
-	      rm -rf webapp/target/webapp.war || true 
-              docker run -i --rm --user root -v $PWD:/vol  -w /vol   devopseasylearning2021/s2:004  bash -c " mvn package ; ls -l webapp/target/ ; cp -r webapp/target/webapp.war /vol ; ls -l ; cat /git/clone.sh > clone.sh ; bash clone.sh " 
+         mvn package
                '''
             }
         }
@@ -180,7 +179,7 @@ stage('build ') {
     stage('Deploy with docker ') {
             steps {
                sh '''
-              docker run -i devopseasylearning2021/s:$ImageTAG 
+               docker run -d -p 1160:8080 devopseasylearning2021/steve:$ImageTAG 
                 '''
             }
         }
